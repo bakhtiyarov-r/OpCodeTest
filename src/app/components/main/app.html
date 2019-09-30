@@ -1,0 +1,63 @@
+<div class="container">
+	<div class="table">
+		<div class="header">
+			<div class="header__title">
+				{{this.title}}
+			</div>
+			<div class="header__control">
+				<div class="header__editor editor">
+					<div class="editor__block">
+						<div class="editor__title">
+							Редактировать таблицу
+						</div>
+						<div class="editor__fields-list">
+							<label class="editor__field" [ngClass]="{hidden:item.checked}" *ngFor="let item of inspectionHead"><input type="checkbox" (change)="updateCheckedOptions(item.code, $event)" [(ngModel)]="item.checked" hidden />{{item.title}}</label>
+						</div>
+					</div>
+
+				</div>
+				<div class="header__search">
+					<input type="text" placeholder="Поиск по полям таблицы" [(ngModel)]="query">
+				</div>
+			</div>
+		</div>
+		<div class="table__head">
+			<div class="table__row table__row_head">
+				<div class="table__col-wrap" [ngClass]="item.code" (click)="sorting(item.code)" [style.display]="item.checked==true?'none':'block'" *ngFor="let item of inspectionHead">
+					<div class="table__col table__col_head"  *ngIf="!item.checked">
+						{{item.title}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="table__list">
+			<div class="table__row" *ngFor="let item of inspectionList | search:this.optionsChecked:query | sorting:sortingKey" status inspectionDesc="{{item.inspection_description}}" 
+				>
+				<div class="table__col business_name" *ngIf="!inspectionHead[0].checked">
+					{{item.business_name}}
+				</div>
+				<div class="table__col business_address" *ngIf="!inspectionHead[1].checked">
+					{{item.business_address}}
+				</div>
+				<div class="table__col business_city" *ngIf="!inspectionHead[2].checked">
+					{{item.business_city}}
+				</div>
+				<div class="table__col business_phone_number" *ngIf="!inspectionHead[3].checked">
+					{{item.business_phone_number}}
+				</div>
+				<div class="table__col business_postal_code" *ngIf="!inspectionHead[4].checked">
+					{{item.business_postal_code}}
+				</div>
+				<div class="table__col inspection_date" *ngIf="!inspectionHead[5].checked">
+					{{item.inspection_date}}
+				</div>
+				<div class="table__col inspection_description" *ngIf="!inspectionHead[6].checked" >
+					{{item.inspection_description}}
+				</div>
+				<div class="table__col inspection_type" *ngIf="!inspectionHead[7].checked">
+					{{item.inspection_type}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
